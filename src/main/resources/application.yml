@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create # create는 drop먼지하고 create하고, create-drop은 create먼저하고 나중에 drop함
     properties:
       hibernate:
 #        show_sql: true

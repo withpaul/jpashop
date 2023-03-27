@@ -2,6 +2,7 @@ package jpabook.jpashop.domain.item;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.Category;
+import jpabook.jpashop.exception.NotEnoughStockException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,4 +27,23 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items") // Category 테이블에 있는 items 필드에 의해 맵핑
     private List<Category> categories = new ArrayList<>();
+
+    /**
+     * entity내에서 값 변경을 서비스 단계에서 하는게 아니라 entity 단계에서 하는게 응집도가 좋으며 객체지향적이다.
+     */
+    public void addStock(int stockQuantity) {
+        this.stockQuantity += stockQuantity;
+    }
+
+    // setter가지고 변경하지말고.. 이런식으로 변경해야해
+    public void removeStock(int stockQuantity) {
+        int resultStockQuantity = this.stockQuantity - stockQuantity;
+
+        if (resultStockQuantity < 1) {
+            throw new NotEnoughStockException("need more stock");
+        }
+
+        this.stockQuantity = resultStockQuantity;
+    }
+
 }

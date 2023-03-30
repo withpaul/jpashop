@@ -18,11 +18,10 @@ class ItemServiceTest {
     @Test
     public void 아이템저장() throws Exception {
         //given
-        Book book = new Book();
-        book.setName("김종진");
+        Book book = Book.createBook("반지의제왕", "isbn", "김종진", 10000, 5);
         //when
         itemService.saveItem(book);
-        List<Item> findItems = itemService.findByName("김종진");
+        List<Item> findItems = itemService.findByName("반지의제왕");
         //then
         Assertions.assertThat(findItems).isNotEmpty();
     }

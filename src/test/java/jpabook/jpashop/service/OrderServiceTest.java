@@ -13,6 +13,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -76,10 +77,15 @@ class OrderServiceTest {
 
 
     private Book createBook(String name, int price, int stockQuantity) {
-        Book book = new Book();
-        book.setName(name);
-        book.setPrice(price);
-        book.setStockQuantity(stockQuantity);
+        //given
+        Book book = Book.createBook(
+                null,
+                name,
+                null,
+                null,
+                price,
+                stockQuantity
+        );
         em.persist(book);
         return book;
     }

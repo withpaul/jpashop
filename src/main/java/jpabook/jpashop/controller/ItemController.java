@@ -26,15 +26,14 @@ public class ItemController {
 
     @PostMapping("/items/new")
     public String create(BookForm bookForm) {
-//        Book book = Book.createBook(
-//                null,
-//                bookForm.getName(),
-//                bookForm.getIsbn(),
-//                bookForm.getAuthor(),
-//                bookForm.getPrice(),
-//                bookForm.getStockQuantity()
-//        );
-        Book book = new Book();
+        Book book = Book.createBook(
+                null,
+                bookForm.getName(),
+                bookForm.getIsbn(),
+                bookForm.getAuthor(),
+                bookForm.getPrice(),
+                bookForm.getStockQuantity()
+        );
         book.setName(bookForm.getName());
         book.setIsbn(bookForm.getIsbn());
         book.setAuthor(bookForm.getAuthor());
@@ -68,14 +67,14 @@ public class ItemController {
 
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
-        Book book = new Book();
-        book.setId(form.getId());
-        book.setName(form.getName());
-        book.setPrice(form.getPrice());
-        book.setStockQuantity(form.getStockQuantity());
-        book.setAuthor(form.getAuthor());
-        book.setIsbn(form.getIsbn());
-
+        Book book = Book.createBook(
+                form.getId(),
+                form.getName(),
+                form.getIsbn(),
+                form.getAuthor(),
+                form.getPrice(),
+                form.getStockQuantity()
+        );
         itemService.saveItem(book);
         return "redirect:/items";
     }

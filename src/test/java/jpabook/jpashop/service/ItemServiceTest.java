@@ -18,8 +18,15 @@ class ItemServiceTest {
     @Test
     public void 아이템저장() throws Exception {
         //given
-        Book book = new Book();
-        book.setName("김종진");
+        Book book = Book.createBook(
+                null,
+                "반지의제왕",
+                null,
+                null,
+                0,
+                0
+        );
+
         //when
         itemService.saveItem(book);
         List<Item> findItems = itemService.findByName("반지의제왕");

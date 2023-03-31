@@ -16,7 +16,6 @@ public class Book extends Item {
     private String author;
     private String isbn;
 
-
     //==생성 메서드==//
     public static Book createBook(Long id, String name, String isbn, String author, int price, int stockQuantity) {
         Book book = new Book();
@@ -27,5 +26,9 @@ public class Book extends Item {
         book.setPrice(price);
         book.setStockQuantity(stockQuantity);
         return book;
+    }
+
+    public void changeAuthor(String author) {
+        this.author = author;
     }
 }

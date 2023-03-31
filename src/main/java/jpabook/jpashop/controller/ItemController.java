@@ -3,6 +3,8 @@ package jpabook.jpashop.controller;
 import jpabook.jpashop.domain.item.Book;
 import jpabook.jpashop.domain.item.Item;
 import jpabook.jpashop.service.ItemService;
+import jpabook.jpashop.service.dto.item.BookDto;
+import jpabook.jpashop.service.dto.item.ItemDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,15 +69,14 @@ public class ItemController {
 
     @PostMapping(value = "/items/{itemId}/edit")
     public String updateItem(@ModelAttribute("form") BookForm form) {
-        Book book = Book.createBook(
-                form.getId(),
-                form.getName(),
-                form.getIsbn(),
-                form.getAuthor(),
-                form.getPrice(),
-                form.getStockQuantity()
-        );
-        itemService.saveItem(book);
+        // 말도안되는 사례이지만, dirth checking을 사용해보기 위해 바꿔봄
+        ItemDto itemDto = new ItemDto();
+        itemDto.setId(form.getId());
+        itemDto.setName(form.getName());
+        itemDto.setPrice(form.getPrice());
+        itemDto.setStockQuantity(form.getStockQuantity());
+        itemService.updateItem(itemDto);
+
         return "redirect:/items";
     }
 }
